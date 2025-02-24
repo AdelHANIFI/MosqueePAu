@@ -1,0 +1,31 @@
+{
+  "application_type": "other",
+  "client_id": "cc_classic_Y25CZs1GhPqAS6wLAhL8KDy62xD8Z",
+  "client_secret": "cc_sk_classic_spfSiiLMUH11VWdUbjbsWD9G6Aog7bpLY9dvWospU7sn4QZe8P",
+  "cors_uris": [
+    ""
+  ],
+  "id": "CCCQQYRKA",
+  "name": "mosquee",
+  "redirect_uris": [
+    "http://localhost"
+  ]
+}
+
+https://api.sumup.com/authorize?response_type=code&client_id=cc_classic_Y25CZs1GhPqAS6wLAhL8KDy62xD8Z&redirect_uri=http://localhost&scope=user.profile user.profile_readonly readers.read payments transactions.history
+
+
+$access_token = "at_classic_9fuqDna0mdpCINibBvj8mYpdKmjTYs71hB5ih5BKZM7UnBLRo4aWe"
+
+$headers = @{
+    "Authorization" = "Bearer $access_token"
+}
+
+$url = "https://api.sumup.com/v0.1/me/terminals"
+
+try {
+    $response = Invoke-RestMethod -Uri $url -Method GET -Headers $headers
+    Write-Host "Terminaux disponibles :" $response
+} catch {
+    Write-Host "Erreur lors de la récupération des terminaux :" $_
+}

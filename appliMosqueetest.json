@@ -1,0 +1,72 @@
+{
+  "application_type": "other",
+  "client_id": "cc_classic_LETa0jCgLsThlyKT9TNLLWiIkjpxb",
+  "client_secret": "cc_sk_classic_ercPHtk6gU9a2I068XXtXuwWGV9Zxz18I6uf1K9AMyC5UBh2h5",
+  "cors_uris": [
+    ""
+  ],
+  "id": "CCCQQK2ZR",
+  "name": "Mosquee",
+  "redirect_uris": [
+    "http://localhost"
+  ]
+}
+
+$url = "https://api.sumup.com/v0.1/me/terminals"
+$headers = @{
+    "Authorization" = "Bearer <at_classic_025P5wmuCynMxkLmzauevRkkZZDWZQCUkS0A4d7wAXzHZYnGrMKNM>"  # Remplacez par le jeton obtenu
+}
+
+$url = "https://api.sumup.com/v0.1/checkouts"
+$headers = @{
+    "Authorization" = "Bearer <at_classic_025P5wmuCynMxkLmzauevRkkZZDWZQCUkS0A4d7wAXzHZYnGrMKNM>"
+    "Content-Type" = "application/json"
+}
+$body = @{
+    "amount" = 50.00  # Montant en EUR
+    "currency" = "EUR"
+    "description" = "Don pour la mosquée"
+    "pay_to_email" = "votre_email_sumup@exemple.com"  # Email associé au compte SumUp
+} | ConvertTo-Json -Depth 10
+
+try {
+    $response = Invoke-RestMethod -Uri $url -Method POST -Headers $headers -Body $body
+    Write-Host "Paiement initié avec succès :" $response
+} catch {
+    Write-Host "Erreur lors de l'initiation du paiement :" $_
+}
+
+
+https://api.sumup.com/authorize?client_id=cc_classic_LETa0jCgLsThlyKT9TNLLWiIkjpxb&response_type=code&redirect_uri=http://localhost&scope=transactions.history readers.read payments
+https://api.sumup.com/authorize?client_id=cc_classic_Y25CZs1GhPqAS6wLAhL8KDy62xD8Z&response_type=code&redirect_uri=http://localhost&scope=user.profile user.profile_readonly readers.read payments transactions.history
+https://api.sumup.com/authorize?response_type=code&client_id=cc_classic_Y25CZs1GhPqAS6wLAhL8KDy62xD8Z&redirect_uri=http://localhost&scope=user.profile user.profile_readonly readers.read payments transactions.history
+
+
+WiMOE2fuPWpeEnBYHIJ1OxypRUpJk7OmZBxT
+
+
+
+
+$client_id = "cc_classic_Y25CZs1GhPqAS6wLAhL8KDy62xD8Z"
+$client_secret = "cc_sk_classic_spfSiiLMUH11VWdUbjbsWD9G6Aog7bpLY9dvWospU7sn4QZe8P"
+
+$url = "https://api.sumup.com/token"
+$headers = @{
+    "Content-Type" = "application/x-www-form-urlencoded"
+}
+$body = @{
+    "grant_type" = "client_credentials"
+    "client_id" = $client_id
+    "client_secret" = $client_secret
+    "scope" = "user.profile user.profile_readonly readers.read payments transactions.history"
+}
+
+try {
+    $response = Invoke-RestMethod -Uri $url -Method POST -Headers $headers -Body $body
+    Write-Host "Jeton d'accès :" $response.access_token
+} catch {
+    Write-Host "Erreur lors de la récupération du jeton :" $_
+}
+
+
+Jeton d'accès : at_classic_VvREC7oYTv5etZvTrgMfaQ3VuS5OYKOLEICCjEfrXynQ6RUoxnqcy
